@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -11,22 +12,6 @@
         <connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>
         <tag>HEAD</tag>
     </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>artifactory</id>
-            <url>http://localhost:8085/artifactory/example-repo-local</url>
-        </repository>
-    </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <deployment.repository.url>http://localhost:8085/artifactory/example-repo-local</deployment.repository.url>
-            </properties>
-        </profile>
-    </profiles>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,19 +50,26 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <goals>
-                    <goal>deploy-file</goal>
-                </goals>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
                 <configuration>
-                    <repositoryId>artifactory</repositoryId>
-                    <url>${deployment.repository.url}</url>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <groupId>${project.groupId}</groupId>
-                    <version>${rpm.version}-${rpm.release}.noarch</version>
-                    <file>${rpm.copy.to.location}</file>
+                    <copyright>2010 - dimitrisli</copyright>
+                    <group>Application/Collectors</group>
+
+                    <needarch>true</needarch>
+                    <mappings>
+                        <mapping>
+                            <directoryIncluded>false</directoryIncluded>
+                            <directory>/opt/vp/app/${finalJarName}/current</directory>
+                            <sources>
+                                <source>
+                                    <location>${project.build.directory}/${finalJarName}.jar</location>
+                                    <targetArchitecture>x86_64</targetArchitecture>
+                                </source>
+                            </sources>
+                        </mapping>
+                    </mappings>
                 </configuration>
             </plugin>
 
