@@ -26,5 +26,13 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+
+        stage('Build: artifactory') {
+        	if (isMaster) {
+        		sh "${mvnHome}/bin/mvn rpm:version deploy:deploy-file --activate-profiles prod -Dbuild.number=${BUILD_NUMBER}"
+        	} else {
+        		sh "${mvnHome}/bin/mvn rpm:version deploy:deploy-file --activate-profiles test -Dbuild.number=${BUILD_NUMBER}"
+        	}
+        }
     }
 }
