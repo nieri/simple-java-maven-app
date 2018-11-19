@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
@@ -9,45 +10,18 @@
 
     <scm>
         <connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<uniqueVersion>false</uniqueVersion>-->
-            <!--<id>deployment.repository.url</id>-->
-            <!--<name>Corporate Repository</name>-->
-            <!--<url>http://localhost:8085/artifactory</url>-->
-            <!--<layout>default</layout>-->
-        <!--</repository>-->
-    <!--</distributionManagement>-->
-
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>my-internal-site</id>-->
-            <!--<url>http://myserver/repo</url>-->
-        <!--</repository>-->
-    <!--</repositories>-->
-
-    <profiles>
-        <profile>
-            <id>develop</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <deployment.repository.url>http://localhost:8085/artifactory/snapshot-local
-                </deployment.repository.url>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <deployment.repository.url>http://localhost:8085/artifactory/release-local
-                </deployment.repository.url>
-            </properties>
-        </profile>
-    </profiles>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>YY.MM.dd</maven.build.timestamp.format>
+        <buildNumber>0</buildNumber>
+        <finalJarName>my-app</finalJarName>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -57,22 +31,15 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.mycompany.app.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -83,20 +50,26 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <goals>
-                    <goal>deploy-file</goal>
-                </goals>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
                 <configuration>
-                    <!-- must match id of settings.xml of Jenkins -->
-                    <repositoryId>artifactory</repositoryId>
-                    <url>${deployment.repository.url}</url>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <groupId>${project.groupId}</groupId>
-                    <version>${rpm.version}-${rpm.release}.noarch</version>
-                    <file>${rpm.copy.to.location}</file>
+                    <copyright>2010 - dimitrisli</copyright>
+                    <group>Application/Collectors</group>
+
+                    <needarch>true</needarch>
+                    <mappings>
+                        <mapping>
+                            <directoryIncluded>false</directoryIncluded>
+                            <directory>/opt/vp/app/${finalJarName}/current</directory>
+                            <sources>
+                                <source>
+                                    <location>${project.build.directory}/${finalJarName}.jar</location>
+                                    <targetArchitecture>x86_64</targetArchitecture>
+                                </source>
+                            </sources>
+                        </mapping>
+                    </mappings>
                 </configuration>
             </plugin>
 
