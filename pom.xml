@@ -67,7 +67,7 @@
                                     <configuration>true</configuration>
                                     <sources>
                                         <source>
-                                            <location>target/${artifactId}-${version}.jar</location>
+                                            <location>/target/my-app.jar</location>
                                         </source>
                                     </sources>
                                 </mapping>
