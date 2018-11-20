@@ -96,8 +96,7 @@
                             <artifactId>${project.artifactId}</artifactId>
                             <groupId>${project.groupId}</groupId>
                             <packaging>rpm</packaging>
-                            <version>${project.version}.noarch.rpm</version>
-                            <file>/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
+                            <file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
                         </configuration>
                     </plugin>
 
