@@ -93,11 +93,11 @@
                         <configuration>
                             <!-- must match id of settings.xml of Jenkins -->
                             <repositoryId>artifactory</repositoryId>
-                            <!--<url>${deployment.repository.url}</url>-->
                             <artifactId>${project.artifactId}</artifactId>
                             <groupId>${project.groupId}</groupId>
+                            <packaging>rpm</packaging>
                             <version>${project.version}.noarch.rpm</version>
-                            <file>/target/checkout/target/rpm/my-app/RPMS/noarch/</file>
+                            <file>/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
                         </configuration>
                     </plugin>
 
