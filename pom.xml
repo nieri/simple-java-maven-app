@@ -64,21 +64,21 @@
                         <configuration>
                             <group>Application/Collectors</group>
                             <prefix>/app/my-app</prefix>
-                            <!--<mappings>-->
-                                <!--<mapping>-->
-                                    <!--<directory>/app/my-app</directory>-->
-                                    <!--<filemode>755</filemode>-->
-                                <!--</mapping>-->
-                                <!--<mapping>-->
-                                    <!--<directory>/app/my-app</directory>-->
-                                    <!--<configuration>true</configuration>-->
-                                    <!--<sources>-->
-                                        <!--<source>-->
-                                            <!--<location>${project.basedir}/target/my-app.jar</location>-->
-                                        <!--</source>-->
-                                    <!--</sources>-->
-                                <!--</mapping>-->
-                            <!--</mappings>-->
+                            <mappings>
+                                <mapping>
+                                    <directory>/app/my-app</directory>
+                                    <filemode>755</filemode>
+                                </mapping>
+                                <mapping>
+                                    <directory>/app/my-app</directory>
+                                    <configuration>true</configuration>
+                                    <sources>
+                                        <source>
+                                            <location>${project.basedir}/target/my-app.jar</location>
+                                        </source>
+                                    </sources>
+                                </mapping>
+                            </mappings>
                         </configuration>
                         <executions>
                             <execution>
