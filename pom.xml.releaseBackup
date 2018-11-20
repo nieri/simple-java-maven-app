@@ -1,0 +1,163 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <packaging>jar</packaging>
+    <version>1.14-SNAPSHOT</version>
+    <name>my-app</name>
+    <url>http://maven.apache.org</url>
+
+    <scm>
+        <connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>
+      <tag>HEAD</tag>
+  </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <url>http://localhost:8086/repository/rpm-repo/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redline-rpm</groupId>
+            <artifactId>redline</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>releases</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>rpm-maven-plugin</artifactId>
+                        <version>2.1.5</version>
+                        <configuration>
+                            <group>Application/Collectors</group>
+                            <prefix>/app/my-app</prefix>
+                            <mappings>
+                                <mapping>
+                                    <directory>/app/my-app</directory>
+                                    <filemode>755</filemode>
+                                </mapping>
+                                <mapping>
+                                    <directory>/app/my-app</directory>
+                                    <configuration>true</configuration>
+                                    <sources>
+                                        <source>
+                                            <location>${project.basedir}/target/my-app.jar</location>
+                                        </source>
+                                    </sources>
+                                </mapping>
+                            </mappings>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-rpm</id>
+                                <goals>
+                                    <goal>rpm</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <!-- must match id of settings.xml of Jenkins -->
+                            <repositoryId>artifactory</repositoryId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <groupId>${project.groupId}</groupId>
+                            <packaging>rpm</packaging>
+                            <file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
+                        </configuration>
+                    </plugin>
+
+                    <!--<plugin>-->
+                        <!--<groupId>org.jfrog.buildinfo</groupId>-->
+                        <!--<artifactId>artifactory-maven-plugin</artifactId>-->
+                        <!--<version>2.6.1</version>-->
+                        <!--<inherited>false</inherited>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>build-info</id>-->
+                                <!--<goals>-->
+                                    <!--<goal>publish</goal>-->
+                                <!--</goals>-->
+                                <!--<configuration>-->
+                                    <!--<deployProperties>-->
+                                        <!--<gradle>awesome</gradle>-->
+                                    <!--</deployProperties>-->
+                                    <!--<file>{project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/my-app-@{project.version}.noarch.rpm</file>-->
+                                    <!--<artifactory>-->
+                                        <!--<includeEnvVars>true</includeEnvVars>-->
+                                        <!--<envVarsExcludePatterns>*password*,*secret*,*key*,*token*,*passphrase*</envVarsExcludePatterns>-->
+                                        <!--<timeoutSec>60</timeoutSec>-->
+                                    <!--</artifactory>-->
+                                    <!--<publisher>-->
+                                        <!--<contextUrl>http://localhost:8085/artifactory</contextUrl>-->
+                                        <!--<username>admin</username>-->
+                                        <!--<password>password</password>-->
+                                        <!--<excludePatterns>*-tests.jar</excludePatterns>-->
+                                        <!--<repoKey>example-repo-local</repoKey>-->
+                                        <!--<snapshotRepoKey>example-repo-local</snapshotRepoKey>-->
+                                    <!--</publisher>-->
+                                <!--</configuration>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <username>nieri</username>
+                    <password>Fla$#912</password>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <releaseProfiles>releases</releaseProfiles>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+
+
+    </build>
+</project>
