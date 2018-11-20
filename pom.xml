@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
@@ -19,23 +20,9 @@
         </repository>
     </distributionManagement>
 
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <deployment.repository.url>http://localhost:8085/artifactory/example-repo-local</deployment.repository.url>
-            </properties>
-        </profile>
-    </profiles>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <timestamp>${maven.build.timestamp}</timestamp>
-        <maven.build.timestamp.format>YY.MM.dd</maven.build.timestamp.format>
-        <buildNumber>0</buildNumber>
-        <finalJarName>my-app</finalJarName>
     </properties>
 
     <dependencies>
@@ -50,37 +37,16 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>rpm-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <extensions>true</extensions>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <goals>
-                    <goal>deploy-file</goal>
-                </goals>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
                 <configuration>
-                    <repositoryId>artifactory</repositoryId>
-                    <url>${deployment.repository.url}</url>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <groupId>${project.groupId}</groupId>
-                    <version>${rpm.version}-${rpm.release}.noarch</version>
-                    <file>${rpm.copy.to.location}</file>
+                    <tagBase>scm:git:https://github.com/nieri/simple-java-maven-app.git</tagBase>
                 </configuration>
             </plugin>
-
+            
         </plugins>
     </build>
 </project>
