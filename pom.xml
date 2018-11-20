@@ -13,10 +13,10 @@
   </scm>
 
     <distributionManagement>
-        <repository>
+        <snapshotRepository>
             <id>nexus</id>
             <url>http://localhost:8086/repository/rpm-repo/</url>
-        </repository>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>
@@ -115,6 +115,7 @@
                         <configuration>
                             <serverId>nexus</serverId>
                             <nexusUrl>http://localhost:8086/repository/rpm-repo/</nexusUrl>
+                            <stagingProfileId>6a307e02-ca60-36f9-84b9-1472b12580eb</stagingProfileId>
                             <skipStaging>true</skipStaging>
                         </configuration>
                     </plugin>
