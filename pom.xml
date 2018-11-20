@@ -14,7 +14,7 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory</id>
+            <id>nexus</id>
             <url>http://localhost:8086/repository/rpm-repo/</url>
         </repository>
     </distributionManagement>
