@@ -61,25 +61,25 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>rpm-maven-plugin</artifactId>
                         <version>2.1.5</version>
-                        <configuration>
-                            <group>Application/Collectors</group>
-                            <prefix>/app/my-app</prefix>
-                            <mappings>
-                                <mapping>
-                                    <directory>/app/my-app</directory>
-                                    <filemode>755</filemode>
-                                </mapping>
-                                <mapping>
-                                    <directory>/app/my-app</directory>
-                                    <configuration>true</configuration>
-                                    <sources>
-                                        <source>
-                                            <location>${project.basedir}/target/my-app.jar</location>
-                                        </source>
-                                    </sources>
-                                </mapping>
-                            </mappings>
-                        </configuration>
+                        <!--<configuration>-->
+                            <!--<group>Application/Collectors</group>-->
+                            <!--<prefix>/app/my-app</prefix>-->
+                            <!--<mappings>-->
+                                <!--<mapping>-->
+                                    <!--<directory>/app/my-app</directory>-->
+                                    <!--<filemode>755</filemode>-->
+                                <!--</mapping>-->
+                                <!--<mapping>-->
+                                    <!--<directory>/app/my-app</directory>-->
+                                    <!--<configuration>true</configuration>-->
+                                    <!--<sources>-->
+                                        <!--<source>-->
+                                            <!--<location>${project.basedir}/target/my-app.jar</location>-->
+                                        <!--</source>-->
+                                    <!--</sources>-->
+                                <!--</mapping>-->
+                            <!--</mappings>-->
+                        <!--</configuration>-->
                         <executions>
                             <execution>
                                 <id>generate-rpm</id>

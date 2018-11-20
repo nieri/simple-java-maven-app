@@ -3,7 +3,7 @@
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>1.16-SNAPSHOT</version>
+    <version>1.17-SNAPSHOT</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -37,6 +37,13 @@
             <artifactId>redline</artifactId>
             <version>1.2.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -84,25 +91,23 @@
                     </plugin>
 
                     <plugin>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
                         <executions>
                             <execution>
-                                <id>deploy-file</id>
+                                <id>default-deploy</id>
                                 <phase>deploy</phase>
                                 <goals>
-                                    <goal>deploy-file</goal>
+                                    <goal>deploy</goal>
                                 </goals>
-                                <configuration>
-                                    <file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
-                                    <url>http://localhost:8086/repository/rpm-repo/</url>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <packaging>rpm</packaging>
-                                </configuration>
                             </execution>
                         </executions>
+                        <configuration>
+                            <serverId>nexus</serverId>
+                            <nexusUrl>http://localhost:8086/nexus/</nexusUrl>
+                            <skipStaging>true</skipStaging>
+                        </configuration>
                     </plugin>
 
                     <!--<plugin>-->
