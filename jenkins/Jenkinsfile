@@ -5,10 +5,28 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
     stages {
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Release') {
+            steps {
+                sh 'release:clean release:prepare release:perform
+                       -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}'
             }
         }
         stage('Test') {
@@ -25,14 +43,6 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
-        }
-
-        stage('Build: artifactory') {
-        	if (isMaster) {
-        		sh "${mvnHome}/bin/mvn rpm:version deploy:deploy-file --activate-profiles prod -Dbuild.number=${BUILD_NUMBER}"
-        	} else {
-        		sh "${mvnHome}/bin/mvn rpm:version deploy:deploy-file --activate-profiles test -Dbuild.number=${BUILD_NUMBER}"
-        	}
         }
     }
 }
