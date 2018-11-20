@@ -3,7 +3,7 @@
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>1.14-SNAPSHOT</version>
+    <version>1.15-SNAPSHOT</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -14,7 +14,7 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory</id>
+            <id>nexus</id>
             <url>http://localhost:8086/repository/rpm-repo/</url>
         </repository>
     </distributionManagement>
