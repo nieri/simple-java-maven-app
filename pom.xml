@@ -3,7 +3,7 @@
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>1.19-SNAPSHOT</version>
+    <version>1.18-SNAPSHOT</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -61,9 +61,9 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>rpm-maven-plugin</artifactId>
                         <version>2.1.5</version>
-                        <!--<configuration>-->
-                            <!--<group>Application/Collectors</group>-->
-                            <!--<prefix>/app/my-app</prefix>-->
+                        <configuration>
+                            <group>Application/Collectors</group>
+                            <prefix>/app/my-app</prefix>
                             <!--<mappings>-->
                                 <!--<mapping>-->
                                     <!--<directory>/app/my-app</directory>-->
@@ -79,7 +79,7 @@
                                     <!--</sources>-->
                                 <!--</mapping>-->
                             <!--</mappings>-->
-                        <!--</configuration>-->
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>generate-rpm</id>
