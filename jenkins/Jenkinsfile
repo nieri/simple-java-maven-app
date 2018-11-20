@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'mvn -B release:clean release:prepare release:perform
+                sh 'mvn -B release:clean release:prepare release:perform'
             }
         }
         stage('Test') {
