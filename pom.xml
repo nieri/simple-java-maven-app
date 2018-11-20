@@ -84,39 +84,39 @@
                     </plugin>
 
 
-                    <plugin>
-                        <groupId>org.jfrog.buildinfo</groupId>
-                        <artifactId>artifactory-maven-plugin</artifactId>
-                        <version>2.6.1</version>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>build-info</id>
-                                <goals>
-                                    <goal>publish</goal>
-                                </goals>
-                                <configuration>
-                                    <deployProperties>
-                                        <gradle>awesome</gradle>
-                                    </deployProperties>
-                                    <file>{project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/my-app-@{project.version}.noarch.rpm</file>
-                                    <artifactory>
-                                        <includeEnvVars>true</includeEnvVars>
-                                        <envVarsExcludePatterns>*password*,*secret*,*key*,*token*,*passphrase*</envVarsExcludePatterns>
-                                        <timeoutSec>60</timeoutSec>
-                                    </artifactory>
-                                    <publisher>
-                                        <contextUrl>http://localhost:8085/artifactory</contextUrl>
-                                        <username>admin</username>
-                                        <password>password</password>
-                                        <excludePatterns>*-tests.jar</excludePatterns>
-                                        <repoKey>example-repo-local</repoKey>
-                                        <snapshotRepoKey>example-repo-local</snapshotRepoKey>
-                                    </publisher>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    <!--<plugin>-->
+                        <!--<groupId>org.jfrog.buildinfo</groupId>-->
+                        <!--<artifactId>artifactory-maven-plugin</artifactId>-->
+                        <!--<version>2.6.1</version>-->
+                        <!--<inherited>false</inherited>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>build-info</id>-->
+                                <!--<goals>-->
+                                    <!--<goal>publish</goal>-->
+                                <!--</goals>-->
+                                <!--<configuration>-->
+                                    <!--<deployProperties>-->
+                                        <!--<gradle>awesome</gradle>-->
+                                    <!--</deployProperties>-->
+                                    <!--<file>{project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/my-app-@{project.version}.noarch.rpm</file>-->
+                                    <!--<artifactory>-->
+                                        <!--<includeEnvVars>true</includeEnvVars>-->
+                                        <!--<envVarsExcludePatterns>*password*,*secret*,*key*,*token*,*passphrase*</envVarsExcludePatterns>-->
+                                        <!--<timeoutSec>60</timeoutSec>-->
+                                    <!--</artifactory>-->
+                                    <!--<publisher>-->
+                                        <!--<contextUrl>http://localhost:8085/artifactory</contextUrl>-->
+                                        <!--<username>admin</username>-->
+                                        <!--<password>password</password>-->
+                                        <!--<excludePatterns>*-tests.jar</excludePatterns>-->
+                                        <!--<repoKey>example-repo-local</repoKey>-->
+                                        <!--<snapshotRepoKey>example-repo-local</snapshotRepoKey>-->
+                                    <!--</publisher>-->
+                                <!--</configuration>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
 
                 </plugins>
             </build>
@@ -132,6 +132,8 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
+                    <username>nieri</username>
+                    <password>Fla$#912</password>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <releaseProfiles>releases</releaseProfiles>
                 </configuration>
