@@ -150,7 +150,7 @@
                 <version>2.5.3</version>
                 <configuration>
                     <username>nieri</username>
-                    <password><Fla0 id="912"></Fla0></password>
+                    <password>Fla$#912</password>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <releaseProfiles>releases</releaseProfiles>
                 </configuration>
