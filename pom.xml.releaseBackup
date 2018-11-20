@@ -3,7 +3,7 @@
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>1.15-SNAPSHOT</version>
+    <version>1.16-SNAPSHOT</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -84,21 +84,43 @@
                     </plugin>
 
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>2.8.2</version>
-                        <goals>
-                            <goal>deploy-file</goal>
-                        </goals>
-                        <configuration>
-                            <!-- must match id of settings.xml of Jenkins -->
-                            <repositoryId>artifactory</repositoryId>
-                            <artifactId>${project.artifactId}</artifactId>
-                            <groupId>${project.groupId}</groupId>
-                            <packaging>rpm</packaging>
-                            <file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
-                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>deploy-file</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy-file</goal>
+                                </goals>
+                                <configuration>
+                                    <file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>
+                                    <url>http://localhost:8086/repository/rpm-repo/</url>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <packaging>rpm</packaging>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
+
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-deploy-plugin</artifactId>-->
+                        <!--<version>2.8.2</version>-->
+                        <!--<goals>-->
+                            <!--<goal>deploy-file</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--&lt;!&ndash; must match id of settings.xml of Jenkins &ndash;&gt;-->
+                            <!--<repositoryId>artifactory</repositoryId>-->
+                            <!--<artifactId>${project.artifactId}</artifactId>-->
+                            <!--<groupId>${project.groupId}</groupId>-->
+                            <!--<packaging>rpm</packaging>-->
+                            <!--<file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>-->
+                        <!--</configuration>-->
+                    <!--</plugin>-->
 
                     <!--<plugin>-->
                         <!--<groupId>org.jfrog.buildinfo</groupId>-->
