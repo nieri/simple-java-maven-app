@@ -15,7 +15,7 @@
     <distributionManagement>
         <repository>
             <id>artifactory</id>
-            <url>http://localhost:8085/artifactory/example-repo-local</url>
+            <url>http://localhost:8086/repository/rpm-repo/</url>
         </repository>
     </distributionManagement>
 
