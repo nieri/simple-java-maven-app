@@ -51,11 +51,15 @@
             <id>releases</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                    </plugin>
 
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>rpm-maven-plugin</artifactId>
-                        <version>2.1.5</version>
+                        <version>2.2.0</version>
                         <executions>
                             <execution>
                                 <id>build-rpm</id>
@@ -114,67 +118,13 @@
                             <skipStaging>true</skipStaging>
                         </configuration>
                     </plugin>
-
-                    <!--<plugin>-->
-                        <!--<groupId>org.apache.maven.plugins</groupId>-->
-                        <!--<artifactId>maven-deploy-plugin</artifactId>-->
-                        <!--<version>2.8.2</version>-->
-                        <!--<goals>-->
-                            <!--<goal>deploy-file</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--&lt;!&ndash; must match id of settings.xml of Jenkins &ndash;&gt;-->
-                            <!--<repositoryId>artifactory</repositoryId>-->
-                            <!--<artifactId>${project.artifactId}</artifactId>-->
-                            <!--<groupId>${project.groupId}</groupId>-->
-                            <!--<packaging>rpm</packaging>-->
-                            <!--<file>${project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/*.rpm</file>-->
-                        <!--</configuration>-->
-                    <!--</plugin>-->
-
-                    <!--<plugin>-->
-                        <!--<groupId>org.jfrog.buildinfo</groupId>-->
-                        <!--<artifactId>artifactory-maven-plugin</artifactId>-->
-                        <!--<version>2.6.1</version>-->
-                        <!--<inherited>false</inherited>-->
-                        <!--<executions>-->
-                            <!--<execution>-->
-                                <!--<id>build-info</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>publish</goal>-->
-                                <!--</goals>-->
-                                <!--<configuration>-->
-                                    <!--<deployProperties>-->
-                                        <!--<gradle>awesome</gradle>-->
-                                    <!--</deployProperties>-->
-                                    <!--<file>{project.basedir}/target/checkout/target/rpm/my-app/RPMS/noarch/my-app-@{project.version}.noarch.rpm</file>-->
-                                    <!--<artifactory>-->
-                                        <!--<includeEnvVars>true</includeEnvVars>-->
-                                        <!--<envVarsExcludePatterns>*password*,*secret*,*key*,*token*,*passphrase*</envVarsExcludePatterns>-->
-                                        <!--<timeoutSec>60</timeoutSec>-->
-                                    <!--</artifactory>-->
-                                    <!--<publisher>-->
-                                        <!--<contextUrl>http://localhost:8085/artifactory</contextUrl>-->
-                                        <!--<username>admin</username>-->
-                                        <!--<password>password</password>-->
-                                        <!--<excludePatterns>*-tests.jar</excludePatterns>-->
-                                        <!--<repoKey>example-repo-local</repoKey>-->
-                                        <!--<snapshotRepoKey>example-repo-local</snapshotRepoKey>-->
-                                    <!--</publisher>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
-                        <!--</executions>-->
-                    <!--</plugin>-->
-
                 </plugins>
             </build>
         </profile>
     </profiles>
-
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -186,10 +136,6 @@
                     <releaseProfiles>releases</releaseProfiles>
                 </configuration>
             </plugin>
-
         </plugins>
-
-
-
     </build>
 </project>
