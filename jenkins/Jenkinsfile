@@ -8,7 +8,10 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'mvn -B release:clean release:prepare release:perform -X'
+                sh 'mvn --batch-mode -U release:clean release:prepare release:perform -X'
+                script {
+                    TAG_SELECTOR = readMavenPom().getVersion()
+                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
             }
         }
         stage('Test') {
