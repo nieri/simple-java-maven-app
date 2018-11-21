@@ -7,16 +7,16 @@
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
-    <!--<scm>-->
-        <!--<connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>-->
-      <!--<tag>HEAD</tag>-->
-  <!--</scm>-->
-
     <scm>
         <connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>
-        <url>https://github.com/nieri/simple-java-maven-app.git</url>
-        <tag>HEAD</tag>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
+
+    <!--<scm>-->
+        <!--<connection>scm:git:https://github.com/nieri/simple-java-maven-app.git</connection>-->
+        <!--<url>https://github.com/nieri/simple-java-maven-app.git</url>-->
+        <!--<tag>HEAD</tag>-->
+    <!--</scm>-->
 
     <distributionManagement>
         <repository>
