@@ -9,6 +9,7 @@
 
     <scm>
         <connection>scm:git:ssh://git@github.com/nieri/simple-java-maven-app.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/nieri/simple-java-maven-app.git</developerConnection>
         <url>https://github.com/nieri/simple-java-maven-app.git</url>
         <tag>HEAD</tag>
     </scm>
