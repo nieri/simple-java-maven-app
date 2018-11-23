@@ -8,7 +8,8 @@
     <url>http://maven.apache.org</url>
 
     <scm>
-        <connection>scm:git:git://github.com/nieri/simple-java-maven-app.git</connection>
+        <connection>scm:git:ssh://git@github.com/nieri/simple-java-maven-app.git</connection>
+        <url>https://github.com/nieri/simple-java-maven-app.git</url>
         <tag>HEAD</tag>
     </scm>
 
