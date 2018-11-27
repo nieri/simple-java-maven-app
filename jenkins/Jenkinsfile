@@ -1,54 +1,13 @@
-def TAG_SELECTOR = "UNINTIALIZED"
 pipeline {
-    agent any
-
-    parameters([
-        choice(choices: ['bug fix', 'feature', 'release'], description: 'escolha o tipo de build', name: 'param'),
-        gitParameter(name: 'branch',
-                             description: 'Escolha uma branch',
-                             branch: '',
-                             branchFilter: '.*',
-                             tagFilter: '*',
-                             sortMode: 'NONE',
-                             defaultValue: '',
-                             selectedValue: 'NONE',
-                             quickFilterEnabled: false,
-                             type: 'PT_BRANCH')
-    ])
-
-
-
-    parameters {
-            choice(choices: ['bug fix', 'feature', 'release'], description: 'escolha o tipo de build', name: 'param')
-        }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Release') {
-            steps {
-                sh 'mvn --batch-mode -U release:clean release:prepare release:perform -X'
-                script {
-                    TAG_SELECTOR = readMavenPom().getVersion()
-                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
+  agent any
+  parameters {
+    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+  }
+  stages {
+    stage('Example') {
+      steps {
+        git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+      }
     }
+  }
 }
