@@ -17,7 +17,7 @@
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <url>http://localhost:8182/repository/rpm-repo/</url>
+            <url>http://10.7.8.73:8182/repository/rpm-repo/</url>
         </repository>
     </distributionManagement>
 
