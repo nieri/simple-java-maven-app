@@ -1,6 +1,26 @@
 def TAG_SELECTOR = "UNINTIALIZED"
 pipeline {
     agent any
+
+    parameters([
+        choice(choices: ['bug fix', 'feature', 'release'], description: 'escolha o tipo de build', name: 'param'),
+        gitParameter(name: 'branch',
+                             description: 'Escolha uma branch',
+                             branch: '',
+                             branchFilter: '.*',
+                             tagFilter: '*',
+                             sortMode: 'NONE',
+                             defaultValue: '',
+                             selectedValue: 'NONE',
+                             quickFilterEnabled: false,
+                             type: 'PT_BRANCH')
+    ])
+
+
+
+    parameters {
+            choice(choices: ['bug fix', 'feature', 'release'], description: 'escolha o tipo de build', name: 'param')
+        }
     stages {
         stage('Build') {
             steps {
