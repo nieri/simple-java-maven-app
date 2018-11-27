@@ -3,7 +3,7 @@
     <groupId>com.mycompany.app</groupId>
     <artifactId>my-app</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>my-app</name>
     <url>http://maven.apache.org</url>
 
@@ -11,7 +11,7 @@
         <connection>scm:git:git@github.com:nieri/simple-java-maven-app.git</connection>
         <developerConnection>scm:git:git@github.com:nieri/simple-java-maven-app.git</developerConnection>
         <url>https://github.com/nieri/simple-java-maven-app.git</url>
-        <tag>HEAD</tag>
+        <tag>v0.1.0</tag>
     </scm>
 
     <distributionManagement>
