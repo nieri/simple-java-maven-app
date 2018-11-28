@@ -4,6 +4,8 @@ pipeline {
     choice(name: 'build_type',
             choices: 'bug fix\nfeature\nrelease',
             description: 'escolha o tipo de build')
+
+            gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
   }
   stages {
     stage('Example') {
