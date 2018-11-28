@@ -1,24 +1,21 @@
 pipeline {
   agent any
+  parameters {
 
+  gitParameter(branch: '',
+                         branchFilter: 'origin/(.*)',
+                         defaultValue: 'develop',
+                         description: 'Escolha uma branch',
+                         name: 'BRANCH',
+                         quickFilterEnabled: false,
+                         selectedValue: 'NONE',
+                         sortMode: 'NONE',
+                         tagFilter: '*',
+                         type: 'PT_BRANCH')
 
-
-  properties([
-      parameters([
-          gitParameter(branch: '',
-                       branchFilter: 'origin/(.*)',
-                       defaultValue: 'develop',
-                       description: 'Escolha uma branch',
-                       name: 'BRANCH',
-                       quickFilterEnabled: false,
-                       selectedValue: 'NONE',
-                       sortMode: 'NONE',
-                       tagFilter: '*',
-                       type: 'PT_BRANCH')
-      ])
-  ])
-  node {
-      git branch: "${params.BRANCH}", url: 'https://github.com/nieri/simple-java-maven-app.git'
+    choice(name: 'build_type',
+            choices: 'bug fix\nfeature\nrelease',
+            description: 'escolha o tipo de build')
   }
 
   stages {
@@ -28,5 +25,19 @@ pipeline {
         echo "${params.build_type}"
       }
     }
+
+    stage('Checkout') {
+                steps {
+                    checkout([$class: 'GitSCM',
+                              branches: [[name: "${params.TAG}"]],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions: [],
+                              gitTool: 'Default',
+                              submoduleCfg: [],
+                              userRemoteConfigs: [[url: 'https://github.com/nieri/simple-java-maven-app.git']]
+                            ])
+                }
+            }
+
   }
 }
