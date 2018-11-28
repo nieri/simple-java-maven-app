@@ -2,7 +2,7 @@ pipeline {
   agent any
   parameters {
     choice(name: 'build_type',
-            choises: 'bug fix\nfeature\nrelease',
+            choices: 'bug fix\nfeature\nrelease',
             description: 'escolha o tipo de build')
   }
   stages {
