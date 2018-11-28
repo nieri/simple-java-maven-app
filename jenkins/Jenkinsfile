@@ -1,9 +1,12 @@
 pipeline {
   agent any
 
-   parameters([choice(choices:['bug fixw', 'feature', 'release'],
+   parameters{
+        [choice(choices:['bug fixw', 'feature', 'release'],
                 description: 'escolha o tipo de build',
-                name: 'build_type')])
+                name: 'build_type')]
+            }
+
   stages {
     stage('Example') {
       steps {
