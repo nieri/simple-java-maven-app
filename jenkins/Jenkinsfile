@@ -1,12 +1,16 @@
 pipeline {
   agent any
   parameters {
-    gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+
+    choice(name: 'build_type',
+            choises: 'bug fix\nfeature\nrelease',
+            description: ''escolha o tipo de build)
   }
   stages {
     stage('Example') {
       steps {
-        git branch: "${params.BRANCH}", url: 'https://github.com/jenkinsci/git-parameter-plugin.git'
+        echo 'Hello'
+        echo "${params.build_type}"
       }
     }
   }
