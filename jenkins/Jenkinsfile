@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  parameters {
 
    parameters([choice(choices:['bug fixw', 'feature', 'release'],
                 description: 'escolha o tipo de build',
